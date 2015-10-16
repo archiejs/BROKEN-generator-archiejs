@@ -5,6 +5,14 @@ Command line interface for archiejs.
 Please read Basics.md to get acquainted with the project structure and different components of ArchieJs.
 
 
+## Installing Archie-cli
+
+
+    npm install -g archie-cli
+
+Above installs `archiejs command-line utilities` in the global directory.
+
+
 ## Getting help
 
 
