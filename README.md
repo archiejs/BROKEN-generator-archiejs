@@ -45,7 +45,7 @@ The boiler-plate archiejs code comes with an a User database and an implementati
 
 A short command, such as, `archie filename` or `archie [typeof] filename` can be used to quickly open the relevant file in `vim` from any directory. The choice of editor is hardcoded at the moment. 
 
-The command instructs the user to things s/he might have to do manually to add/remove/etc a model/controller/etc.
+These commands allow the user to create a module in easy step-by-step manner.
 
 
 ### Run project code
