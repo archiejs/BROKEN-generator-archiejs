@@ -1,0 +1,6 @@
+
+Hello. Thanks for using ArchieJs. 
+
+This file will contain logs from archiejs generator. It will help you to remember the things you need to do to complete the steps, like creation of a route, or a model, or a controller, etc.
+
+

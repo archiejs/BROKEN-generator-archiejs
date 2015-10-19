@@ -1,0 +1,22 @@
+
+Things you need to do manually
+==============================
+
+-> Add this code-snipped manually to the relevant routes file (/routes/).
+
+    var <%= apiName %> = require('./../<%= controller %>');
+    app.route('/<% version %>/<%= apiName %>/:id')
+       .get(<%= controller %>.get);
+    app.route('/<% version %>/<%= apiName %>/')
+       .post(<%= controller %>.create)
+       .get(<%= controller %>.filter);
+       .patch(<%= controller %>.update)
+       .delete(<%= controller %>.delete);
+
+-> Add this code-snipped manually to the /models/package.json
+
+    plugins: {  // in this json key-value pair
+        <% modelCamelCase %>: <% model %>
+    }
+
+

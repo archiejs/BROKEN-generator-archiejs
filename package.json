@@ -1,0 +1,25 @@
+{
+  "name": "generator-archiejs",
+  "version": "1.0.0",
+  "description": "Yo generator for archiejs",
+  "files": [
+    "app",
+    "update"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/archiejs/generator-archiejs.git"
+  },
+  "author": "Naval Saini <navalnovel@gmail.com> (http://www.flipflopapp.com/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/archiejs/generator-archiejs/issues"
+  },
+  "homepage": "https://github.com/archiejs/generator-archiejs#readme",
+  "dependencies": {
+    "yeoman-generator": "^0.20.3"
+  }
+}
