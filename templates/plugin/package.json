@@ -1,0 +1,27 @@
+{
+  "name": "<%= pluginName %>",
+  "version": "1.0.0",
+  "description": "<%= description %>",
+  "main": "<%= main %>",
+  "plugins": {
+      "provides": "<%= provides %>",
+      "consumes": "<%= consimes %>",
+      "packageWrapper": "<%= packageWrapper %>"
+  },
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/mocha/bin/mocha test"
+  },
+  "devDependencies": {
+    "chai": "^3.3.0",
+    "mocha": "^2.3.3"
+  },
+  "author": "Naval Saini <navalnovel@gmail.com> (http://www.flipflopapp.com/)",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": ""
+}

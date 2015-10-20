@@ -1,0 +1,7 @@
+
+-> You need to manually modify models/package.json
+
+    plugins: {  // in this json key-value pair
+        User : "user.js"
+    }
+

@@ -4,14 +4,14 @@ Things you need to do manually
 
 -> Add this code-snipped manually to the relevant routes file (/routes/).
 
-    var <%= apiName %> = require('./../<%= controller %>');
-    app.route('/<% version %>/<%= apiName %>/:id')
-       .get(<%= controller %>.get);
-    app.route('/<% version %>/<%= apiName %>/')
-       .post(<%= controller %>.create)
-       .get(<%= controller %>.filter);
-       .patch(<%= controller %>.update)
-       .delete(<%= controller %>.delete);
+    var <%= controller %>Controller = require('./../<%= controller %>');
+    app.route('/<% apiVersion %>/<%= apiName %>/:id')
+       .get(<%= controller %>Controller.get);
+    app.route('/<% apiVersion %>/<%= apiName %>/')
+       .post(<%= controller %>Controller.create)
+       .get(<%= controller %>Controller.filter);
+       .patch(<%= controller %>Controller.update)
+       .delete(<%= controller %>Controller.delete);
 
 -> Add this code-snipped manually to the /models/package.json
 
