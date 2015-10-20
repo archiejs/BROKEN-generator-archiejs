@@ -12,9 +12,10 @@ var Generator = module.exports = function Generator(args, opts, config){
     this.appname = _.camelize(_.slugify(_.humanize(this.appname)));
 
     this.on('end', function(){
+        this.log('Please read https://github.com/archiejs/generator-archiejs/blob/master/Basics.md to know about the basics of the code organisation.');
     });
 
-    this.sourceRoot(path.join(__dirname, '../templates/'));
+    this.sourceRoot(path.join(__dirname, '..', 'templates'));
 };
 
 util.inherits(Generator, yeoman.generators.Base);
@@ -64,10 +65,13 @@ Generator.prototype.userAuth = function userAuth() {
     // Add to YoArchie-Todo.txt
     // 1. Prompt user what to add to routes
     // 2. Prompt user what to add to init section
-
+    
     var todo = this.read(path.join('auth', 'logs-todo.txt'));
     this.write('logs-todo.txt', todo);
-    this.log(todo);
+
+    this.on('end', function(){
+        this.log(todo);
+    });
 
     done();
 };
@@ -84,7 +88,6 @@ Generator.prototype.setupEnv = function packageFile() {
 
 Generator.prototype.introMessage = function introMessage() {
     var done = this.async();
-    //this.spwanCommandSync('npm', 'install');
-    this.log('Please read https://github.com/archiejs/generator-archiejs/blob/master/Basics.md to know about the basics of the code organisation.');
+    this.npmInstall();
     done();
 };
