@@ -2,20 +2,18 @@
 
 var path = require('path'),
     util = require('util'),
-    yeoman = require('yeoman-generator');
-
-var log = require('./log');
+    yeoman = require('yeoman-generator'),
+    _ = require('underscore.string');
 
 var Generator = module.exports = function Generator(args, opts, config){
     yeoman.generators.Base.apply(this, arguments);
     this.argument('appname', { type: String, required: false });
     this.appname = this.appname || path.basename(process.cwd());
-    this.appname = this._.camelize(this._.slugify(this._.humanize(this.appname)));
+    this.appname = _.camelize(_.slugify(_.humanize(this.appname)));
 
     this.on('end', function(){
     });
 
-    this.pkg = require('../package.json');
     this.sourceRoot(path.join(__dirname, '../templates/'));
 };
 
@@ -39,33 +37,35 @@ Generator.prototype.askForAuth = function askForAuth() {
 Generator.prototype.boilerplate = function boilerplate() {
     var done = this.async();
     var srcfolder = path.join(this.sourceRoot(), 'boiler');
-    this.copy( srcfolder , '.' );
+    this.directory( 'boiler' , '.' );
     done();
 };
 
 Generator.prototype.archiejsCore = function archiejsCore() {
     var done = this.async();
-    var srcfolder = path.join(this.sourceRoot(), 'archiejs');
     var destfolder = path.join('configs', 'archiejs');
-    this.copy(srcfolder, destfolder);
+    this.directory('archiejs', destfolder);
     done();
 };
 
 Generator.prototype.userAuth = function userAuth() {
     var done = this.async();
-    var srcfolder = path.join(this.sourceRoot(), 'auth');
+    if(!this.addAuth){
+        this.log('User authentication modules are not installed');
+        return done();
+    }
 
     // copy user auth model
-    this.copy(path.join(srcfolder, 'model.js'), path.join('models', 'user.js'));
+    this.copy(path.join('auth', 'model.js'), path.join('models', 'user.js'));
 
     // copy user auth contoller
-    this.copy(path.join(srcfolder, 'controller.js'), path.join('controller', 'user.js'));
+    this.copy(path.join('auth', 'controller.js'), path.join('controller', 'user.js'));
 
     // Add to YoArchie-Todo.txt
     // 1. Prompt user what to add to routes
     // 2. Prompt user what to add to init section
 
-    var todo = this.read(path.join(srcfolder, 'logs-todo.txt'));
+    var todo = this.read(path.join('auth', 'logs-todo.txt'));
     this.write('logs-todo.txt', todo);
     this.log(todo);
 
@@ -82,8 +82,9 @@ Generator.prototype.setupEnv = function packageFile() {
     done();
 };
 
-Generator.prototype.npmInstall = function npmInstall() {
+Generator.prototype.introMessage = function introMessage() {
     var done = this.async();
+    //this.spwanCommandSync('npm', 'install');
+    this.log('Please read https://github.com/archiejs/generator-archiejs/blob/master/Basics.md to know about the basics of the code organisation.');
+    done();
 };
-
-

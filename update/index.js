@@ -25,7 +25,7 @@ Generator.prototype.fetchArchiejs = function fetchArchiejs(){
 Generator.prototype.fetchBoilerplate = function fetchBoilerplate(){
     var cb = this.async();
     this.remote('archiejs', 'archiejs-boilerplate', 'master', function(err, remote){
-        var destPath = path.resolve(templatedir, 'archiejs');
+        var destPath = path.resolve(templatedir, 'boiler');
         remote.bulkDirectory('.', destPath);
         cb();
     });
