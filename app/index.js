@@ -43,7 +43,7 @@ Generator.prototype.boilerplate = function boilerplate() {
 
 Generator.prototype.archiejsCore = function archiejsCore() {
     var done = this.async();
-    var destfolder = path.join('configs', 'archiejs');
+    var destfolder = path.join('config', 'archiejs');
     this.directory('archiejs', destfolder);
     done();
 };
