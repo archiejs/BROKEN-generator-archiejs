@@ -10,7 +10,6 @@ var Generator = module.exports = function Generator(args, opts, config){
     yeoman.generators.Base.apply(this, arguments);
     this.argument('pluginName', { type: String, required: true });
     this.pluginName = _.camelize(_.slugify(_.humanize(this.pluginName)));
-    this.pluginCaps = _.capitalize(this.pluginName);
     this.todoMsgs = [];
 
     this.on('end', function(){
@@ -25,7 +24,7 @@ var Generator = module.exports = function Generator(args, opts, config){
         //var logsFilepath = path.join(this.destinationRoot(), 'logs-todo.txt');
         //this.fs.appendFile(logsFilepath, todoStr);
     });
-    
+
     this.sourceRoot(path.join(__dirname, '..', 'templates', 'plugin'));
 };
 
@@ -68,15 +67,14 @@ Generator.prototype.askPluginInfo = function askPluginInfo(){
         var services = props['servicesNames'].split(/[ ,]+/);
         services.forEach(function(service){
             var serviceName = _.capitalize(service);
-            var filename = service;
+            var filename = service + '.js';
             this.provides[serviceName] = filename;
             this.serviceFiles[filename] = serviceName; 
         }.bind(this));
 
         this.consumes = []; // TODO create a list of all plugins and ask user 
-    
+
         this.destinationRoot(path.join(this.destinationRoot(), 'plugins', this.pluginName));
-        console.log(this.destinationRoot());
         done();
     }.bind(this));
 };
@@ -98,6 +96,8 @@ Generator.prototype.packageJson = function packageJson(){
         this.dummyProvides = this.provides;
         this.hasDummy = true;
         this.provides = newProvides;
+    }else{
+        this.hasDummy = false;
     }
 
     this.template('package.json');
@@ -134,10 +134,11 @@ Generator.prototype.renderTestFiles = function renderTestFiles(){
     var done = this.async();
     for(var filename in this.serviceFiles){
         var data = {
+            pluginName: this.pluginName,
             serviceName: this.serviceFiles[filename],
             serviceFileName: filename
         };
-        this.template('service.js', path.join('test', filename), data);
+        this.template('test.js', path.join('test', filename), data);
     }
     done();
 };

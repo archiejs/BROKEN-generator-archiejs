@@ -10,10 +10,10 @@ describe('Authentication Testcases:', function() {
 
     before(function(done){
         var profile = {
-            username: 'naval',
-            password: 'naval',
-            email: 'navalnovel@gmail.com',
-            fullname: 'Naval Saini'
+            username: 'happyman',
+            password: 'happyman',
+            email: 'happy@man.com',
+            fullname: 'Happy Man'
         };
 
         request(url)
@@ -29,10 +29,10 @@ describe('Authentication Testcases:', function() {
 
     it('should return error trying to save duplicate user', function(done){
         var profile = {
-            username: 'naval',
-            password: 'naval',
-            email: 'navalnovel@gmail.com',
-            fullname: 'Naval Saini'
+            username: 'happyman',
+            password: 'happyman',
+            email: 'happy@man.com',
+            fullname: 'Happy Man'
         };
 
         request(url)
@@ -49,8 +49,8 @@ describe('Authentication Testcases:', function() {
 
     it('should login the user', function(done){
         var body = {
-        username: 'naval',
-        password: 'naval'
+        username: 'happyman',
+        password: 'happyman'
         };
 
         request(url)
@@ -60,8 +60,8 @@ describe('Authentication Testcases:', function() {
             if(err) {
                 throw err;
             }
-            res.body.fullname.should.equal('Naval Saini');
-            res.body.email.should.equal('navalnovel@gmail.com');
+            res.body.fullname.should.equal('Happy Man');
+            res.body.email.should.equal('happy@man.com');
             res.should.have.status(200);
             done();
         });

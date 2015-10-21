@@ -7,21 +7,21 @@ var should = chai.should();
 var dummyOptions = {};
 var dummyImports = {};
 var <%= serviceName %> = require('./../<%= serviceFileName %>');
-var <%= serviceName %>Inst;
+var inst<%= serviceName %>;
 
-describe('Plugin <%= plugin %> Testcases:', function(){
+describe('Plugin <%= pluginName %> Testcases:', function(){
     
     before(function(){
         // create an instance of the plugin and pass it
         // dummy options and imports
-        <%= serviceName %>Inst = new <%= serviceName %>(dummyOptions, dummyImports);
+        inst<%= serviceName %> = new <%= serviceName %>(dummyOptions, dummyImports);
     });
     
     afterEach(function(){
     });
 
     it('#tests something', function(done){
-        // add testcase <%= serviceName %>Inst here
+        // add testcase for inst<%= serviceName %> here
         done('Todo: please implement your first testcase');
     });
 

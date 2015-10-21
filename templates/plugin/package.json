@@ -3,12 +3,12 @@
   "version": "1.0.0",
   "description": "<%= description %>",
   "plugins": {
-      "provides": <%= provides %>,
-      "consumes": <%= consumes %>,
+      "provides": <%= JSON.stringify(provides) %>,
+      "consumes": [],
       "packageWrapper": "<%= packageWrapper %>"
   },
 <% if(hasDummy){ %>  "dummy": {
-      "provides": <%= dummyProvides %>
+      "provides": <%= JSON.stringify(dummyProvides) %>
   }, <% } %>
   "directories": {
     "test": "test"
