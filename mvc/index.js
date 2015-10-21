@@ -24,6 +24,9 @@ var Generator = module.exports = function Generator(args, opts, config){
         this.log("\n\nYou need to do these things by yourself.");
         this.log("========================================");
         this.log(todoStr);
+
+        //var logsFilepath = path.join(this.destinationRoot(), 'logs-todo.txt');
+        //this.fs.appendFile(logsFilepath, todoStr);
     });
     
     this.sourceRoot(path.join(__dirname, '..', 'templates', 'mvc'));

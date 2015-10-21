@@ -12,6 +12,7 @@ var Generator = module.exports = function Generator(args, opts, config){
     this.appname = _.camelize(_.slugify(_.humanize(this.appname)));
 
     this.skipInstall = opts['skip-install'];
+
     this.todoMsgs = [];
     this.todoMsgs.push('-> Please read https://github.com/archiejs/generator-archiejs/blob/master/Basics.md to know about the basics of the code organisation.');
 
@@ -23,6 +24,9 @@ var Generator = module.exports = function Generator(args, opts, config){
         this.log("\n\nYou need to do these things by yourself.");
         this.log("========================================");
         this.log(todoStr);
+
+        //var logsFilepath = path.join(this.destinationRoot(), 'logs-todo.txt');
+        //this.fs.appendFile(logsFilepath, todoStr);
     });
 
     this.sourceRoot(path.join(__dirname, '..', 'templates'));
