@@ -14,7 +14,7 @@ var Generator = module.exports = function Generator(args, opts, config){
     this.skipInstall = opts['skip-install'];
 
     this.todoMsgs = [];
-    this.todoMsgs.push('-> Please read https://github.com/archiejs/generator-archiejs/blob/master/Basics.md to know about the basics of the code organisation.');
+    this.todoMsgs.push('-> Please read https://github.com/archiejs/archiejs-docs/blob/master/Basics.md to know about the basics of the code organisation.');
 
     this.on('end', function(){
         var todoStr = '';
