@@ -10,6 +10,16 @@ Please read Basics.md to get acquainted with the project structure and different
 
     npm install -g yo
     npm install -g generator-archiejs
+
+or
+
+    git clone <this-repo>
+    npm link
+
+
+And update the template/boiler-plate code in the generator.
+
+
     yo archiejs:update
 
 
@@ -22,10 +32,8 @@ Please read Basics.md to get acquainted with the project structure and different
     yo archiejs project-name
 
 
-The command creates a new archie project. 
-
-
-The boiler-plate archiejs code comes with an a User database and an implementation of passport local strategy for login (initialization in /config directory, apis in /routes directory and implementation in /controllers ).
+* The command creates a new archie project. 
+* It comes with an a User database and an implementation of passport local strategy for login (initialization in /config directory, apis in /routes directory and implementation in /controllers ).
 
 
 ### Add modules
@@ -34,9 +42,9 @@ The boiler-plate archiejs code comes with an a User database and an implementati
     yo archiejs:mvc mvc-name
 
 
-This command creates following files /models/mvc-name and /controllers/mvc-name. You need to add the api routes (instructs via logs) manually to the routes file.
-
-These commands allow the user to create a module in easy step-by-step manner.
+* This command creates following files /models/mvc-name and /controllers/mvc-name. 
+* You need to add the api routes (instructs via logs) manually to the routes file.
+* These commands allow the user to create a module in easy step-by-step manner.
 
 
 ### Add services
