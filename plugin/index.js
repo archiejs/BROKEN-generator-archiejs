@@ -100,7 +100,14 @@ Generator.prototype.packageJson = function packageJson(){
         this.hasDummy = false;
     }
 
-    this.template('package.json');
+    // we need to do all this (below) to render the json in a pretty manner
+
+    var packageTplfile = path.join(this.sourceRoot(), 'package.json');
+    var packageTpl = this.fs.read(packageTplfile);
+    var packageJson = JSON.parse(ejs.render(packageTpl, this));
+    var packageStr = JSON.stringify(packageJson, null, 4);
+    this.write('package.json', packageStr);
+
     var msg = "-> Add any other plugins consumed by `" + this.pluginName 
             + "` to the file /plugins/" + this.pluginName 
             + "/package.json .";
