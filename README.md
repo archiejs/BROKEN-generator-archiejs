@@ -10,6 +10,7 @@ Please read Basics.md to get acquainted with the project structure and different
 
     npm install -g yo
     npm install -g generator-archiejs
+    yo archiejs:update
 
 
 ## Project level commands
