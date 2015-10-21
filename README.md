@@ -28,7 +28,7 @@ The command creates a new archie project.
 The boiler-plate archiejs code comes with an a User database and an implementation of passport local strategy for login (initialization in /config directory, apis in /routes directory and implementation in /controllers ).
 
 
-### Add modules to the project
+### Add modules
 
 
     yo archiejs:mvc mvc-name
@@ -37,6 +37,17 @@ The boiler-plate archiejs code comes with an a User database and an implementati
 This command creates following files /models/mvc-name and /controllers/mvc-name. You need to add the api routes (instructs via logs) manually to the routes file.
 
 These commands allow the user to create a module in easy step-by-step manner.
+
+
+### Add services
+
+
+    yo archiejs:plugin plugin-name
+
+
+* This command creates a plugin in /plugins/plugin-name directory.
+* You can add testcases in /plugin/plugin-name/test directory.
+* You will need to add plugins to config (in /config/plugins) directory for using them.
 
 
 ### Run project code
