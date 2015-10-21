@@ -8,26 +8,8 @@ Please read Basics.md to get acquainted with the project structure and different
 ## Installing Archie-cli
 
 
-    npm install -g archie-cli
-
-Above installs `archiejs command-line utilities` in the global directory.
-
-
-## Getting help
-
-
-Help related to commands.
-
-
-    archie  --help
-    archie  [command]  --help
-
-
-Help about files in current directory (ex. routes, models, etc).
-
-
-    cd <project-sub-directory>
-    archie . --help
+    npm install -g yo
+    npm install -g generator-archiejs
 
 
 ## Project level commands
@@ -36,7 +18,7 @@ Help about files in current directory (ex. routes, models, etc).
 ### Initialize a project
 
 
-    archie init project-name
+    yo archiejs project-name
 
 
 The command creates a new archie project. 
@@ -48,10 +30,10 @@ The boiler-plate archiejs code comes with an a User database and an implementati
 ### Add modules to the project
 
 
-    archie  [model|controller|route|plugin|service|test]  [open|add|remove|*nothing*]  file-name[.js]
+    yo archiejs:mvc mvc-name
 
 
-A short command, such as, `archie filename` or `archie [typeof] filename` can be used to quickly open the relevant file in `vim` from any directory. The choice of editor is hardcoded at the moment. 
+This command creates following files /models/mvc-name and /controllers/mvc-name. You need to add the api routes (instructs via logs) manually to the routes file.
 
 These commands allow the user to create a module in easy step-by-step manner.
 
@@ -59,45 +41,38 @@ These commands allow the user to create a module in easy step-by-step manner.
 ### Run project code
 
 
-    archie  run  [service-name|default|
-
-
-### Examine project
-
-
-List all components of a type (by default lists all of them).
-
-
-    archie  list  [model|controller|route|plugin|service|tests]
+    node app [service-name|default|
 
 
 ### Run testcases
 
 
-    archie  test  [test/unit-test.js]
+    npm test
 
 
-## Commands for future / To-do
+## Interesting commands for future / To-do
+
+
+### Examine project
+
+
+List all plugins and generate a visual dependency tree (by default lists all of them). This information is available by iterating package.json's.
+
+
+    yo archiejs:services
 
 
 ### Manage plugins from archie cloud
 
 
-    archie  [install|remove|search|upgrade|downgrade]  plugin-name
-    *TODO*
+    yo archieijs:plugin [install|remove|search|upgrade|downgrade]  plugin-name
+    *TODO
 
 
 ### Monitor the status of archie cloud installation
 
 
-    archie  status
-    *TODO*
-
-
-### Create a web document describing the flow in the system
-
-
-    archie  dashboard
+    archiejs status
     *TODO*
 
 
