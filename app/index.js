@@ -11,8 +11,18 @@ var Generator = module.exports = function Generator(args, opts, config){
     this.appname = this.appname || path.basename(process.cwd());
     this.appname = _.camelize(_.slugify(_.humanize(this.appname)));
 
+    this.skipInstall = opts['skip-install'];
+    this.todoMsgs = [];
+    this.todoMsgs.push('-> Please read https://github.com/archiejs/generator-archiejs/blob/master/Basics.md to know about the basics of the code organisation.');
+
     this.on('end', function(){
-        this.log('Please read https://github.com/archiejs/generator-archiejs/blob/master/Basics.md to know about the basics of the code organisation.');
+        var todoStr = '';
+        this.todoMsgs.forEach(function(msg){
+            todoStr += '\n\n' + msg;
+        });
+        this.log("\n\nYou need to do these things by yourself.");
+        this.log("========================================");
+        this.log(todoStr);
     });
 
     this.sourceRoot(path.join(__dirname, '..', 'templates'));
@@ -60,7 +70,7 @@ Generator.prototype.userAuth = function userAuth() {
     this.copy(path.join('auth', 'model.js'), path.join('models', 'user.js'));
 
     // copy user auth contoller
-    this.copy(path.join('auth', 'controller.js'), path.join('controller', 'user.js'));
+    this.copy(path.join('auth', 'controller.js'), path.join('controllers', 'user.js'));
 
     // copy testcases
     this.copy(path.join('auth', 'test.js'), path.join('test', 'user.js'));
@@ -70,11 +80,7 @@ Generator.prototype.userAuth = function userAuth() {
     // 2. Prompt user what to add to init section
     
     var todo = this.read(path.join('auth', 'logs-todo.txt'));
-    this.write('logs-todo.txt', todo);
-
-    this.on('end', function(){
-        this.log(todo);
-    });
+    this.todoMsgs.push(todo);
 
     done();
 };
@@ -91,6 +97,10 @@ Generator.prototype.setupEnv = function packageFile() {
 
 Generator.prototype.introMessage = function introMessage() {
     var done = this.async();
-    this.npmInstall();
+    if( !this.skipInstall){
+        this.npmInstall();
+    }else{
+        this.todoMsgs.push('-> You should run `npm install` now.');
+    }
     done();
 };

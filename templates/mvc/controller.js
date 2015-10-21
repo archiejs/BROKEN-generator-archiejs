@@ -1,17 +1,22 @@
 'use strict';
 
+<% if(hasCreate) { %>
+
 /**
  * POST request
- * describle what does it do?
+ * describe what does it do?
  *
  * @param {type} name - description
  */
 
 exports.create = function(req, res){
     var db = req.app.services.db;
-    var <% model %> = db.<%= model %>;
+    var <%= model %> = db.<%= model %>;
     res.sendStatus(200);
 };
+
+<% } 
+   if (hasFilter) { %>
 
 /**
  * GET with filter=?
@@ -21,10 +26,13 @@ exports.create = function(req, res){
 
 exports.filter = function(req, res){
     var db = req.app.services.db;
-    var <% model %> = db.<%= model %>;
+    var <%= model %> = db.<%= model %>;
     var filter = req.query.filter;
     res.sendStatus(200);
 };
+
+<% } 
+   if (hasFetch) { %>
 
 /**
  * GET with id 
@@ -32,12 +40,15 @@ exports.filter = function(req, res){
  * @param {string} id - id of object
  */
 
-exports.get = function(req, res){
+exports.fetch = function(req, res){
     var db = req.app.services.db;
-    var <% model %> = db.<%= model %>;
+    var <%= model %> = db.<%= model %>;
     var id = req.params.id;
     res.sendStatus(200);
 };
+
+<% } 
+   if (hasPatch) { %>
 
 /**
  * PATCH request
@@ -47,10 +58,29 @@ exports.get = function(req, res){
 
 exports.update = function(req, res){
     var db = req.app.services.db;
-    var <% model %> = db.<%= model %>;
+    var <%= model %> = db.<%= model %>;
     var id = req.params.id;
     res.sendStatus(200);
 };
+
+<% } 
+   if (hasUpdate) { %>
+
+/**
+ * PUT request
+ *
+ * @param {string} id - id of object
+ */
+
+exports.update = function(req, res){
+    var db = req.app.services.db;
+    var <%= model %> = db.<%= model %>;
+    var id = req.params.id;
+    res.sendStatus(200);
+};
+
+<% } 
+   if (hasDelete) { %>
 
 /**
  * Delete request
@@ -60,8 +90,9 @@ exports.update = function(req, res){
 
 exports.delete = function(req, res){
     var db = req.app.services.db;
-    var <% model %> = db.<%= model %>;
+    var <%= model %> = db.<%= model %>;
     var id = req.params.id;
     res.sendStatus(200);
 };
 
+<% } %>

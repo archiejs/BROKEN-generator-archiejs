@@ -1,9 +1,9 @@
-
 -> You need to manually modify models/package.json
 
     plugins: {  // in this json key-value pair
         User : "user.js"
     }
+
 
 -> You need to uncomment code for initializing passport-local
    in /configs/init/api.js
@@ -14,6 +14,7 @@
 //  passport.use(new LocalStrategy(User.authenticate()));
 //  passport.serializeUser(User.serializeUser());
 //  passport.deserializeUser(User.deserializeUser());
+
 
 -> You need to uncomment code for setting up routes related to auth module.
 

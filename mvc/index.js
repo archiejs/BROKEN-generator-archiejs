@@ -3,15 +3,27 @@
 var path = require('path'),
     util = require('util'),
     yeoman = require('yeoman-generator'),
-    _ = require('underscore.string');
+    _ = require('underscore.string'),
+    ejs = require('ejs');
 
 var Generator = module.exports = function Generator(args, opts, config){
     yeoman.generators.Base.apply(this, arguments);
-    this.argument('apiName', { type: String, required: true });
-    this.apiCamel = _.camelize(_.slugify(_.humanize(this.apiName)));
+    this.argument('mvcName', { type: String, required: true });
+    this.mvcName = _.camelize(_.slugify(_.humanize(this.mvcName)));
+    this.mvcCaps = _.capitalize(this.mvcName);
+    this.filename = this.mvcName + '.js';
+
+    this.todoMsgs = [];
+    this.todoMsgs.push('-> Please read https://github.com/archiejs/generator-archiejs/blob/master/Basics.md to know about the basics of the code organisation.');
 
     this.on('end', function(){
-        // log manual steps for the user
+        var todoStr = '';
+        this.todoMsgs.forEach(function(msg){
+            todoStr += '\n\n' + msg;
+        });
+        this.log("\n\nYou need to do these things by yourself.");
+        this.log("========================================");
+        this.log(todoStr);
     });
     
     this.sourceRoot(path.join(__dirname, '..', 'templates', 'mvc'));
@@ -78,7 +90,7 @@ Generator.prototype.askForAPITypes = function askForAPITypes() {
     if (this.apiVersion) {
         apiPrefix += this.apiVersion + '/';
     }
-    apiPrefix += this.apiName + '/';
+    apiPrefix += this.mvcName + '/';
     var apiAll = apiPrefix;
     var apiId = apiPrefix + ':id/';
 
@@ -104,7 +116,7 @@ Generator.prototype.askForAPITypes = function askForAPITypes() {
             checked: true
         },{
             name: 'PUT '+apiId,
-            value: 'put',
+            value: 'update',
             checked: true
         },{
             name: 'DELETE '+apiId,
@@ -114,28 +126,74 @@ Generator.prototype.askForAPITypes = function askForAPITypes() {
     }];
 
     this.prompt(prompts, function(props){
-        this.apiCreate = (props['apis'].indexOf('create') !== -1);
-        this.apiFilter = (props['apis'].indexOf('filter') !== -1);
-        this.apiFetch = (props['apis'].indexOf('fetch') !== -1);
-        this.apiPatch = (props['apis'].indexOf('patch') !== -1);
-        this.apiPut = (props['apis'].indexOf('put') !== -1);
-        this.apiDelete = (props['apis'].indexOf('delete') !== -2);
+        this.hasCreate = (props['apis'].indexOf('create') !== -1);
+        this.hasFilter = (props['apis'].indexOf('filter') !== -1);
+        this.hasFetch = (props['apis'].indexOf('fetch') !== -1);
+        this.hasPatch = (props['apis'].indexOf('patch') !== -1);
+        this.hasUpdate = (props['apis'].indexOf('update') !== -1);
+        this.hasDelete = (props['apis'].indexOf('delete') !== -1);
         done();
     }.bind(this));
 };
 
 Generator.prototype.model = function model(){
     var done = this.async();
+    if( !this.hasModel){
+        return done();
+    }
+    var data = {
+        "schema": this.mvcCaps
+    };
+    this.template( 'model.js', path.join('models', this.filename), data);
     done();
 };
 
 Generator.prototype.controller = function controller(){
     var done = this.async();
+    if( !this.hasController){
+        return done();
+    }
+    var data = {
+        "model": this.mvcCaps,
+        "hasCreate": this.hasCreate,
+        "hasFilter": this.hasFilter,
+        "hasFetch": this.hasFetch,
+        "hasPatch": this.hasPatch,
+        "hasUpdate": this.hasUpdate,
+        "hasDelete": this.hasDelete
+    };
+    this.template( 'controller.js', path.join('controllers', this.filename), data);
     done();
 };
 
 Generator.prototype.route = function route(){
     var done = this.async();
+    if( !this.hasRoutes){
+        return done();
+    }
+    
+    var apiPrefix = '/';
+    if (this.apiVersion) {
+        apiPrefix += this.apiVersion + '/';
+    }
+    apiPrefix += this.mvcName + '/';
+
+    var data = {
+        "apiRoute": apiPrefix,
+        "controller": this.mvcName,
+        "hasCreate": this.hasCreate,
+        "hasFilter": this.hasFilter,
+        "hasFetch": this.hasFetch,
+        "hasPatch": this.hasPatch,
+        "hasUpdate": this.hasUpdate,
+        "hasDelete": this.hasDelete
+    };
+   
+    var routeTplfile = path.join(this.sourceRoot(), 'route.js');
+    var routeTpl = this.fs.read(routeTplfile);
+    var todoMsg = ejs.render(routeTpl, data);
+    this.todoMsgs.push('-> You need to add this code your routes file.');
+    this.todoMsgs.push(todoMsg);
     done();
 };
 
