@@ -2,12 +2,14 @@
   "name": "<%= pluginName %>",
   "version": "1.0.0",
   "description": "<%= description %>",
-  "main": "<%= main %>",
   "plugins": {
-      "provides": "<%= provides %>",
-      "consumes": "<%= consimes %>",
+      "provides": <%= provides %>,
+      "consumes": <%= consumes %>,
       "packageWrapper": "<%= packageWrapper %>"
   },
+<% if(hasDummy){ %>  "dummy": {
+      "provides": <%= dummyProvides %>
+  }, <% } %>
   "directories": {
     "test": "test"
   },

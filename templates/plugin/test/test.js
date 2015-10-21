@@ -6,7 +6,7 @@ var should = chai.should();
 
 var dummyOptions = {};
 var dummyImports = {};
-var <%= serviceNameCamel %> = require('./../<%= serviceName %>');
+var <%= serviceName %> = require('./../<%= serviceFileName %>');
 var <%= serviceName %>Inst;
 
 describe('Plugin <%= plugin %> Testcases:', function(){
@@ -14,7 +14,7 @@ describe('Plugin <%= plugin %> Testcases:', function(){
     before(function(){
         // create an instance of the plugin and pass it
         // dummy options and imports
-        <%= serviceName %>Inst = new <%= serviceNameCamel %>(dummyOptions, dummyImports);
+        <%= serviceName %>Inst = new <%= serviceName %>(dummyOptions, dummyImports);
     });
     
     afterEach(function(){

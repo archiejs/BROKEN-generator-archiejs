@@ -95,7 +95,7 @@ Generator.prototype.setupEnv = function packageFile() {
 
     // copy .gitignore, todo.txt
     this.copy(path.join(srcfolder, 'gitignore'), '.gitignore');
-    this.copy(path.join(srcfolder, 'logs-todo.txt'), 'logs-todo.txt');
+    //this.copy(path.join(srcfolder, 'logs-todo.txt'), 'logs-todo.txt');
     done();
 };
 

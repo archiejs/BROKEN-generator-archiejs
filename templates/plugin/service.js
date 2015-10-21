@@ -1,7 +1,7 @@
 // Your service object below.
 
 // constructor
-var <%= serviceNameCamel %> = module.exports = function(options, imports){
+var <%= serviceName %> = module.exports = function(options, imports){
 
     // instantiate instance variables
     // this.instanceVariable = "value";
@@ -9,9 +9,9 @@ var <%= serviceNameCamel %> = module.exports = function(options, imports){
 };
 
 // static variables
-// <%= serviceNameCamel %>.staticVariable = "value";
+// <%= serviceName %>.staticVariable = "value";
 
-// your public members ( ie. <%= seviceNameCamel %>.prototype.XXX below )
+// your public members ( ie. <%= serviceName %>.prototype.XXX below )
 
 (function() {
 
@@ -24,4 +24,4 @@ var <%= serviceNameCamel %> = module.exports = function(options, imports){
     this.aPluginMethod = function(){
     };
 
-}).function(<%= serviceNameCamel %>.prototype);
+}).function(<%= serviceName %>.prototype);

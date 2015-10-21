@@ -12,9 +12,7 @@ var Generator = module.exports = function Generator(args, opts, config){
     this.mvcName = _.camelize(_.slugify(_.humanize(this.mvcName)));
     this.mvcCaps = _.capitalize(this.mvcName);
     this.filename = this.mvcName + '.js';
-
     this.todoMsgs = [];
-    this.todoMsgs.push('-> Please read https://github.com/archiejs/generator-archiejs/blob/master/Basics.md to know about the basics of the code organisation.');
 
     this.on('end', function(){
         var todoStr = '';
@@ -28,7 +26,7 @@ var Generator = module.exports = function Generator(args, opts, config){
         //var logsFilepath = path.join(this.destinationRoot(), 'logs-todo.txt');
         //this.fs.appendFile(logsFilepath, todoStr);
     });
-    
+
     this.sourceRoot(path.join(__dirname, '..', 'templates', 'mvc'));
 };
 
@@ -174,7 +172,7 @@ Generator.prototype.route = function route(){
     if( !this.hasRoutes){
         return done();
     }
-    
+
     var apiPrefix = '/';
     if (this.apiVersion) {
         apiPrefix += this.apiVersion + '/';
@@ -191,7 +189,7 @@ Generator.prototype.route = function route(){
         "hasUpdate": this.hasUpdate,
         "hasDelete": this.hasDelete
     };
-   
+
     var routeTplfile = path.join(this.sourceRoot(), 'route.js');
     var routeTpl = this.fs.read(routeTplfile);
     var todoMsg = ejs.render(routeTpl, data);
