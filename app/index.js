@@ -62,6 +62,9 @@ Generator.prototype.userAuth = function userAuth() {
     // copy user auth contoller
     this.copy(path.join('auth', 'controller.js'), path.join('controller', 'user.js'));
 
+    // copy testcases
+    this.copy(path.join('auth', 'test.js'), path.join('test', 'user.js'));
+
     // Add to YoArchie-Todo.txt
     // 1. Prompt user what to add to routes
     // 2. Prompt user what to add to init section
