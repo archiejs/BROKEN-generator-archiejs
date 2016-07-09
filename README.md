@@ -1,8 +1,6 @@
 # archiejs-cli
+
 Command line interface for archiejs.
-
-
-Please read Basics.md to get acquainted with the project structure and different components of ArchieJs.
 
 
 ## Installing Archie-cli
