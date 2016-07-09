@@ -1,110 +1,56 @@
 'use strict';
 
 var path = require('path'),
-    util = require('util'),
-    yeoman = require('yeoman-generator'),
+    generators = require('yeoman-generator'),
+    rimraf = require('rimraf'),
     _ = require('underscore.string');
 
-var Generator = module.exports = function Generator(args, opts, config){
-    yeoman.generators.Base.apply(this, arguments);
-    this.argument('appname', { type: String, required: false });
-    this.appname = this.appname || path.basename(process.cwd());
-    this.appname = _.camelize(_.slugify(_.humanize(this.appname)));
+var boilerRepos = require('./boiler_repos');
 
-    this.skipInstall = opts['skip-install'];
+module.exports = generators.Base.extend({
 
-    this.todoMsgs = [];
-    this.todoMsgs.push('-> Please read https://github.com/archiejs/archiejs-docs/blob/master/Basics.md to know about the basics of the code organisation.');
+    constructor: function () {
+        generators.Base.apply(this, arguments);
+        this.argument('appname', { type: String, required: true });
+        this.appname = this.appname || path.basename(process.cwd());
+        this.appname = _.camelize(_.slugify(_.humanize(this.appname)));
 
-    this.on('end', function(){
-        var todoStr = '';
-        this.todoMsgs.forEach(function(msg){
-            todoStr += '\n\n' + msg;
-        });
-        this.log("\n\nYou need to do these things by yourself.");
-        this.log("========================================");
-        this.log(todoStr);
+        console.log(`You application will be created in \'${this.appname}\' folder`);
+   
+        this.skipInstall = this.options['skip-install'];
+    },
 
-        //var logsFilepath = path.join(this.destinationRoot(), 'logs-todo.txt');
-        //this.fs.appendFile(logsFilepath, todoStr);
-    });
-
-    this.sourceRoot(path.join(__dirname, '..', 'templates'));
-};
-
-util.inherits(Generator, yeoman.generators.Base);
-
-Generator.prototype.askForAuth = function askForAuth() {
-    var done = this.async();
-    var prompts = [{
-        type: 'confirm',
-        name: 'addAuth',
-        message: 'Would you like to use default Authentication module (passport + local strategy)?',
-        default: true
-    }];
-
-    this.prompt(prompts, function(props){
-        this.addAuth = props.addAuth;
-        done();
-    }.bind(this));
-};
-
-Generator.prototype.boilerplate = function boilerplate() {
-    var done = this.async();
-    var srcfolder = path.join(this.sourceRoot(), 'boiler');
-    this.directory( 'boiler' , '.' );
-    done();
-};
-
-Generator.prototype.archiejsCore = function archiejsCore() {
-    var done = this.async();
-    var destfolder = path.join('config', 'archiejs');
-    this.directory('archiejs', destfolder);
-    done();
-};
-
-Generator.prototype.userAuth = function userAuth() {
-    var done = this.async();
-    if(!this.addAuth){
-        this.log('User authentication modules are not installed');
-        return done();
-    }
-
-    // copy user auth model
-    this.copy(path.join('auth', 'model.js'), path.join('models', 'user.js'));
-
-    // copy user auth contoller
-    this.copy(path.join('auth', 'controller.js'), path.join('controllers', 'user.js'));
-
-    // copy testcases
-    this.copy(path.join('auth', 'test.js'), path.join('test', 'user.js'));
-
-    // Add to YoArchie-Todo.txt
-    // 1. Prompt user what to add to routes
-    // 2. Prompt user what to add to init section
+    askForAppType: function() {
+        var done = this.async();
+        var message = boilerRepos.map((item, index) => `(${index}) ${item.name}` ).join('\n');
+        var prompts = [{
+            type: 'input',
+            name: 'appType',
+            message: `Choose a project type: \n${message}`,
+            default: 1
+        }];
     
-    var todo = this.read(path.join('auth', 'logs-todo.txt'));
-    this.todoMsgs.push(todo);
+        this.prompt(prompts, function(props){
+            if (boilerRepos[props.appType]) {
+                this.gitFolder = boilerRepos[props.appType].repo;
+                done();
+            } else {
+                done(new Error('Invalid input'));
+            }
+        }.bind(this));
+    },
+    
+    install: function() {
+        this.spawnCommandSync('git', ['clone', '--depth=1', this.gitFolder, this.appname]);
+    },
 
-    done();
-};
-
-Generator.prototype.setupEnv = function packageFile() {
-    var done = this.async();
-    var srcfolder = path.join(this.sourceRoot(), 'env');
-
-    // copy .gitignore, todo.txt
-    this.copy(path.join(srcfolder, 'gitignore'), '.gitignore');
-    //this.copy(path.join(srcfolder, 'logs-todo.txt'), 'logs-todo.txt');
-    done();
-};
-
-Generator.prototype.introMessage = function introMessage() {
-    var done = this.async();
-    if( !this.skipInstall){
-        this.npmInstall();
-    }else{
-        this.todoMsgs.push('-> You should run `npm install` now.');
+    end: function() {
+        rimraf.sync(path.join(this.appname, '.git'), {});
+        
+        if( !this.skipInstall){
+           this.npmInstall();
+        }else{
+           console.log('-> You should run `npm install` now.');
+        }
     }
-    done();
-};
+});
