@@ -44,12 +44,13 @@ module.exports = generators.Base.extend({
     },
 
     end: function() {
-        rimraf.sync(path.join(this.appname, '.git'), {});
+        process.chdir(this.appname);
+        rimraf.sync('.git', {});
         
         if( !this.skipInstall){
-           this.npmInstall();
+            this.npmInstall();
         }else{
-           console.log('-> You should run `npm install` now.');
+            console.log('-> You should run `npm install` now.');
         }
     }
 });
