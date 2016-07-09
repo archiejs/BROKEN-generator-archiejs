@@ -2,6 +2,7 @@
   "name": "generator-archiejs",
   "version": "1.0.0",
   "description": "Yo generator for archiejs",
+  "keywords": "yeoman-generator",
   "files": [
     "app"
   ],
