@@ -7,20 +7,16 @@ Please read Basics.md to get acquainted with the project structure and different
 
 ## Installing Archie-cli
 
+```
+git clone https://github.com/archiejs/generator-archiejs
+npm link
+```
 
-    npm install -g yo
-    npm install -g generator-archiejs
-
-or
-
-    git clone <this-repo>
-    npm link
-
-
-And update the template/boiler-plate code in the generator.
-
-
-    yo archiejs:update
+TODO LATER:
+```
+npm install -g yo
+npm install -g generator-archiejs
+```
 
 
 ## Project level commands
@@ -28,9 +24,9 @@ And update the template/boiler-plate code in the generator.
 
 ### Initialize a project
 
-
-    yo archiejs project-name
-
+```
+yo archiejs project-name
+```
 
 * The command creates a new archie project. 
 * It comes with an a User database and an implementation of passport local strategy for login (initialization in /config directory, apis in /routes directory and implementation in /controllers ).
@@ -38,9 +34,9 @@ And update the template/boiler-plate code in the generator.
 
 ### Add modules
 
-
-    yo archiejs:mvc mvc-name
-
+```
+yo archiejs:mvc mvc-name
+```
 
 * This command creates following files /models/mvc-name and /controllers/mvc-name. 
 * You need to add the api routes (instructs via logs) manually to the routes file.
@@ -49,9 +45,9 @@ And update the template/boiler-plate code in the generator.
 
 ### Add services
 
-
-    yo archiejs:plugin plugin-name
-
+```
+yo archiejs:plugin plugin-name
+```
 
 * This command creates a plugin in /plugins/plugin-name directory.
 * You can add testcases in /plugin/plugin-name/test directory.
@@ -60,15 +56,15 @@ And update the template/boiler-plate code in the generator.
 
 ### Run project code
 
-
-    node app [service-name|default|
-
+```
+node app [service-name|default|
+```
 
 ### Run testcases
 
-
-    npm test
-
+```
+npm test
+```
 
 ## Interesting commands for future / To-do
 
@@ -78,25 +74,26 @@ And update the template/boiler-plate code in the generator.
 
 List all plugins and generate a visual dependency tree (by default lists all of them). This information is available by iterating package.json's.
 
-
-    yo archiejs:services
-
+```
+yo archiejs:services
+```
 
 ### Manage plugins from archie cloud
 
 
-    yo archieijs:plugin [install|remove|search|upgrade|downgrade]  plugin-name
-    *TODO
+```
+*TODO*
+yo archieijs:plugin [install|remove|search|upgrade|downgrade]  plugin-name
+```
 
 
 ### Monitor the status of archie cloud installation
 
-
-    archiejs status
-    *TODO*
-
+```
+*TODO*
+archiejs status
+```
 
 ### Add support for docker
 
-
-    *TODO*
+*TODO*
