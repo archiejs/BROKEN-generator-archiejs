@@ -51,6 +51,7 @@ npm test
 List all plugins and generate a visual dependency tree (by default lists all of them). This information is available by iterating package.json's.
 
 ```
+*TODO*
 yo archiejs:services
 ```
 
