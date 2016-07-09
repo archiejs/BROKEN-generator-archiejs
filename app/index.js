@@ -21,21 +21,20 @@ module.exports = generators.Base.extend({
     },
 
     askForAppType: function() {
-        var done = this.async();
         var message = boilerRepos.map((item, index) => `(${index}) ${item.name}` ).join('\n');
         var prompts = [{
             type: 'input',
             name: 'appType',
             message: `Choose a project type: \n${message}`,
-            default: 1
+            default: 0
         }];
     
-        this.prompt(prompts, function(props){
+        return this.prompt(prompts)
+        .then(function(props){
             if (boilerRepos[props.appType]) {
                 this.gitFolder = boilerRepos[props.appType].repo;
-                done();
             } else {
-                done(new Error('Invalid input'));
+                throw(new Error('Invalid input'));
             }
         }.bind(this));
     },
