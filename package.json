@@ -1,6 +1,6 @@
 {
   "name": "generator-archiejs",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Yo generator for archiejs",
   "keywords": "yeoman-generator",
   "files": [
