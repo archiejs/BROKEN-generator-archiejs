@@ -6,16 +6,16 @@ Command line interface for archiejs.
 ## Installing Archie-cli
 
 ```
-git clone https://github.com/archiejs/generator-archiejs
-npm link
-```
-
-TODO LATER:
-```
 npm install -g yo
 npm install -g generator-archiejs
 ```
 
+or,
+
+```
+git clone https://github.com/archiejs/generator-archiejs
+npm link
+```
 
 ## Project level commands
 
