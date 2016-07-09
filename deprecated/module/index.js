@@ -25,7 +25,7 @@ var Generator = module.exports = function Generator(args, opts, config){
         //this.fs.appendFile(logsFilepath, todoStr);
     });
 
-    this.sourceRoot(path.join(__dirname, '..', 'templates', 'plugin'));
+    this.sourceRoot(path.join(__dirname, '..', 'templates', 'module'));
 };
 
 util.inherits(Generator, yeoman.generators.Base);
@@ -35,7 +35,7 @@ Generator.prototype.askPluginInfo = function askPluginInfo(){
     var prompts = [{
         type: 'input',
         name: 'pluginDesc',
-        message: 'Enter plugin description ?',
+        message: 'Enter module description ?',
         required: false
     },{
         type: 'input',
@@ -74,7 +74,7 @@ Generator.prototype.askPluginInfo = function askPluginInfo(){
 
         this.consumes = []; // TODO create a list of all plugins and ask user 
 
-        this.destinationRoot(path.join(this.destinationRoot(), 'plugins', this.pluginName));
+        this.destinationRoot(path.join(this.destinationRoot(), 'modules', this.pluginName));
         done();
     }.bind(this));
 };
@@ -108,8 +108,8 @@ Generator.prototype.packageJson = function packageJson(){
     var packageStr = JSON.stringify(packageJson, null, 4);
     this.write('package.json', packageStr);
 
-    var msg = "-> Add any other plugins consumed by `" + this.pluginName 
-            + "` to the file /plugins/" + this.pluginName 
+    var msg = "-> Add any other modules  consumed by `" + this.pluginName 
+            + "` to the file /modules/" + this.pluginName 
             + "/package.json .";
     this.todoMsgs.push(msg);
     done();
