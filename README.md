@@ -47,28 +47,11 @@ npm test
 
 ### Examine project
 
-
 List all plugins and generate a visual dependency tree (by default lists all of them). This information is available by iterating package.json's.
 
 ```
 *TODO*
 yo archiejs:services
-```
-
-### Manage plugins from archie cloud
-
-
-```
-*TODO*
-yo archieijs:plugin [install|remove|search|upgrade|downgrade]  plugin-name
-```
-
-
-### Monitor the status of archie cloud installation
-
-```
-*TODO*
-archiejs status
 ```
 
 ### Add support for docker
